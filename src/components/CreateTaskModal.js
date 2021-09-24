@@ -4,6 +4,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 
+import db from '../firebase';
+import { addDoc, collection } from '@firebase/firestore';
+
 const CreateTaskModal = () => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,13 +21,17 @@ const CreateTaskModal = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const addTaskToFirebase = async () => {};
+  const addTaskToFirebase = async () => {
+    const collectionRef = collection(db, 'tasks');
+    const payload = formData;
+    await addDoc(collectionRef, payload);
+  };
 
   const handleAddTask = (event) => {
     event.preventDefault();
-    addTaskToFirebase();
-    // add the new task to firebase
-    // add the new task to state
+    if (formData.name.length > 0) {
+      addTaskToFirebase();
+    }
     handleClose();
   };
 

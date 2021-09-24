@@ -6,6 +6,7 @@ import { collection, onSnapshot } from '@firebase/firestore';
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  console.log('rendered app');
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'tasks'), (snapshot) => {
