@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import db from '../firebase';
 
 const Task = ({ task }) => {
@@ -25,9 +25,9 @@ const Task = ({ task }) => {
   const handleShow = () => setShow(true);
 
   const updateTaskOnFirebase = async () => {
-    const collectionRef = doc(db, 'tasks', id);
+    const itemRef = doc(db, 'tasks', id);
 
-    await updateDoc(collectionRef, {
+    await updateDoc(itemRef, {
       name: formData.name,
       description: formData.description,
     });
@@ -39,6 +39,12 @@ const Task = ({ task }) => {
       updateTaskOnFirebase();
     }
     handleClose();
+  };
+
+  const handleDeleteTask = async () => {
+    const itemRef = doc(db, 'tasks', id);
+
+    await deleteDoc(itemRef);
   };
 
   return (
@@ -55,7 +61,7 @@ const Task = ({ task }) => {
               onClick={handleShow}
             />
           </span>
-          <span>
+          <span onClick={handleDeleteTask}>
             <FontAwesomeIcon icon={faTrash} style={{ color: '#5D93E1' }} />
           </span>
         </Card.Body>
