@@ -1,12 +1,11 @@
 import TaskList from './components/TaskList';
-import CreateTaskModal from './components/CreateTaskModal';
+import CreateTask from './components/CreateTask';
 import db from './firebase';
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot } from '@firebase/firestore';
 
 function App() {
   const [tasks, setTasks] = useState([]);
-  console.log('rendered app');
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'tasks'), (snapshot) => {
@@ -20,7 +19,7 @@ function App() {
     <div className="App">
       <div className="header text-center pt-4 mb-4">
         <h3>Todo List</h3>
-        <CreateTaskModal />
+        <CreateTask />
       </div>
       <TaskList tasks={tasks} />
     </div>

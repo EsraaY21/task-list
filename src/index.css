@@ -13,3 +13,7 @@ body {
 .editIcon {
   margin-right: 1rem;
 }
+
+span {
+  cursor: pointer;
+}

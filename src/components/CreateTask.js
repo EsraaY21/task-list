@@ -1,13 +1,12 @@
-import React from 'react';
+import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
 
 import db from '../firebase';
 import { addDoc, collection } from '@firebase/firestore';
 
-const CreateTaskModal = () => {
+const CreateTask = () => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -88,4 +87,4 @@ const CreateTaskModal = () => {
   );
 };
 
-export default CreateTaskModal;
+export default CreateTask;
